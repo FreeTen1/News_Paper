@@ -6,9 +6,6 @@ class Author(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     author_rating = models.IntegerField(default=0)
 
-    def update_rating(self):
-        self.author_rating = self.objects
-
 
 class Category(models.Model):
     name_category = models.CharField(max_length=255, unique=True)
@@ -32,17 +29,6 @@ class Post(models.Model):
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
     category = models.ManyToManyField(Category, through='PostCategory')
 
-    def like(self):
-        self.post_rating += 1
-        self.save()
-
-    def dislike(self):
-        self.post_rating -= 1
-        self.save()
-
-    def preview(self):
-        return self.post_text[:124] + '...'
-
 
 class PostCategory(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
@@ -56,10 +42,14 @@ class Comment(models.Model):
     comment_date_creation = models.DateTimeField(auto_now_add=True)
     comment_rating = models.IntegerField(default=0)
 
-    def like(self):
-        self.comment_rating += 1
-        self.save()
 
-    def dislike(self):
-        self.comment_rating -= 1
-        self.save()
+
+
+
+
+
+
+
+
+
+
