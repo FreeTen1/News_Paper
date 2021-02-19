@@ -1,46 +1,47 @@
-from django.contrib.auth.models import User
 from django.shortcuts import render
-
-from NewsPaper.models import Author, Category, Post, PostCategory, Comment
-
-user1 = User.objects.create_user(username='FreeTen', password='123', email='freeten@gmail.com')
-user2 = User.objects.create_user(username='Itachi', password='sharingan', email='amateratsu@gmail.com')
-
-author1 = Author.objects.create(user=user1, author_rating=0)
-author2 = Author.objects.create(user=user2, author_rating=0)
-
-since_category = Category.objects.create(name_category='Наука')
-sport_category = Category.objects.create(name_category='Спорт')
-python_category = Category.objects.create(name_category='Python')
-chocolate_category = Category.objects.create(name_category='Шоколад')
-
-state1 = Post.objects.create(type=Post.state, post_heading='Наука - это классно!', post_text='text about since', author=author1)
-state2 = Post.objects.create(type=Post.state, post_heading='Спорт поработил шоколад', post_text='в наше время бла бла шоколад это спорт или нет не важно', author=author2)
-news1 = Post.objects.create(type=Post.news, post_heading='Свежие новости', post_text='Свежие новости по Python — высокоуровневый язык программирования общего назначения с динамической типизацией и автоматическим управлением памятью, ориентированный на повышение производительности разработчика, читаемости кода и его качества, а также на обеспечение переносимости написанных', author=author1)
-
-PostCategory.objects.create(post=state1, category=since_category)
-PostCategory.objects.create(post=state2, category=sport_category)
-PostCategory.objects.create(post=state2, category=chocolate_category)
-PostCategory.objects.create(post=news1, category=python_category)
-
-comment1 = Comment.objects.create(post=state1, user=user2, comment_text='Отличный пост FreeTen, ставлю лайк этой статье')
-state1.like()
-
-comment2 = Comment.objects.create(post=state1, user=user1, comment_text='Спасибо!')
-comment1.like()
-comment2.like()
-
-comment3 = Comment.objects.create(post=state2, user=user1, comment_text='Интересная статья, лайк!')
-state2.like()
-
-comment4 = Comment.objects.create(post=news1, user=user2, comment_text='Новость не очень, пожалуй дизлайк, сорян(')
-news1.dislike()
-comment4.dislike()
-author1.update_rating()
-author2.update_rating()
-
-Author.objects.all().order_by('-author_rating').values('user__username', 'author_rating')[0]
-Post.objects.filter(author__user=user1).order_by('-post_rating').values('post_date_creation', 'author__user__username', 'post_rating', 'post_heading')[0]
-Comment.objects.filter(post__post_rating=Post.objects.filter(author__user=user1).order_by('-post_rating').values('post_date_creation', 'author__user__username', 'post_rating', 'post_heading')[0]['post_rating']).values('comment_date_creation', 'user__username', 'comment_rating', 'comment_text')
+# from django.contrib.auth.models import User
+#
+#
+# from NewsPaper.models import Author, Category, Post, PostCategory, Comment
+#
+# user1 = User.objects.create_user(username='FreeTen', password='123', email='freeten@gmail.com')
+# user2 = User.objects.create_user(username='Itachi', password='sharingan', email='amateratsu@gmail.com')
+#
+# author1 = Author.objects.create(user=user1, author_rating=0)
+# author2 = Author.objects.create(user=user2, author_rating=0)
+#
+# since_category = Category.objects.create(name_category='Наука')
+# sport_category = Category.objects.create(name_category='Спорт')
+# python_category = Category.objects.create(name_category='Python')
+# chocolate_category = Category.objects.create(name_category='Шоколад')
+#
+# state1 = Post.objects.create(type=Post.state, post_heading='Наука - это классно!', post_text='text about since', author=author1)
+# state2 = Post.objects.create(type=Post.state, post_heading='Спорт поработил шоколад', post_text='в наше время бла бла шоколад это спорт или нет не важно', author=author2)
+# news1 = Post.objects.create(type=Post.news, post_heading='Свежие новости', post_text='Свежие новости по Python — высокоуровневый язык программирования общего назначения с динамической типизацией и автоматическим управлением памятью, ориентированный на повышение производительности разработчика, читаемости кода и его качества, а также на обеспечение переносимости написанных', author=author1)
+#
+# PostCategory.objects.create(post=state1, category=since_category)
+# PostCategory.objects.create(post=state2, category=sport_category)
+# PostCategory.objects.create(post=state2, category=chocolate_category)
+# PostCategory.objects.create(post=news1, category=python_category)
+#
+# comment1 = Comment.objects.create(post=state1, user=user2, comment_text='Отличный пост FreeTen, ставлю лайк этой статье')
+# state1.like()
+#
+# comment2 = Comment.objects.create(post=state1, user=user1, comment_text='Спасибо!')
+# comment1.like()
+# comment2.like()
+#
+# comment3 = Comment.objects.create(post=state2, user=user1, comment_text='Интересная статья, лайк!')
+# state2.like()
+#
+# comment4 = Comment.objects.create(post=news1, user=user2, comment_text='Новость не очень, пожалуй дизлайк, сорян(')
+# news1.dislike()
+# comment4.dislike()
+# author1.update_rating()
+# author2.update_rating()
+#
+# Author.objects.all().order_by('-author_rating').values('user__username', 'author_rating')[0]
+# Post.objects.filter(author__user=user1).order_by('-post_rating').values('post_date_creation', 'author__user__username', 'post_rating', 'post_heading')[0]
+# Comment.objects.filter(post__post_rating=Post.objects.filter(author__user=user1).order_by('-post_rating').values('post_date_creation', 'author__user__username', 'post_rating', 'post_heading')[0]['post_rating']).values('comment_date_creation', 'user__username', 'comment_rating', 'comment_text')
 
 
