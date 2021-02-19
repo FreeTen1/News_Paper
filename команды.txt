@@ -1,3 +1,6 @@
+from django.contrib.auth.models import User
+from NewsPaper.models import Author, Category, Post, PostCategory, Comment
+
 user1 = User.objects.create_user(username='FreeTen', password='123', email='freeten@gmail.com')
 user2 = User.objects.create_user(username='Itachi', password='sharingan', email='amateratsu@gmail.com')
 
