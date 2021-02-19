@@ -7,7 +7,17 @@ class Author(models.Model):
     author_rating = models.IntegerField(default=0)
 
     def update_rating(self):
-        self.author_rating = self.objects
+        new_rating = 0
+        for item in Post.objects.filter(author__user=self.user).values('post_rating'):
+            new_rating += item['post_rating'] * 3
+
+        for item in Comment.objects.filter(user=self.user).values('comment_rating'):
+            new_rating += item['comment_rating']
+
+        for item in Comment.objects.all().filter(post__author__user=self.user).values('comment_rating'):
+            new_rating += item['comment_rating']
+        self.author_rating = new_rating
+        self.save()
 
 
 class Category(models.Model):
