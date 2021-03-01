@@ -1,6 +1,4 @@
-from django.views.generic import \
-    ListView, \
-    DetailView  # импортируем класс, который говорит нам о том, что в этом представлении мы будем выводить список объектов из БД
+from django.views.generic import ListView, DetailView  # импортируем класс, который говорит нам о том, что в этом представлении мы будем выводить список объектов из БД
 from .models import Post
 
 

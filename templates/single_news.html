@@ -1,3 +1,5 @@
+{% load my_filters %} {# Подключение кастомных фильров #}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,8 +7,8 @@
     <title>Title</title>
 </head>
 <body>
-    <h1>{{ single_news.post_heading }}</h1>
-    <i>Дата создания статьи: {{ single_news.post_date_creation|date:'d.m.Y' }}</i>
-    <p>{{ single_news.post_text }}</p>
+    <h1>{{ single_news.post_heading|censor }}</h1>
+    <i>Дата создания статьи: {{ single_news.post_date_creation|date:'d.m.Y H:m' }}</i>
+    <p>{{ single_news.post_text|censor }}</p>
 </body>
 </html>

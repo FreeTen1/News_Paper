@@ -1,3 +1,5 @@
+{% load my_filters %} {# Подключение кастомных фильров #}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,7 +11,7 @@
 <h2>Всего новостей: {{ news|length }}</h2>
     <ul>
         {% for single_news in news %}
-            <li>id: {{ single_news.id }}. <b>{{ single_news.post_heading }}</b>. дата публикации: {{ single_news.post_date_creation|date:'d.m.Y' }}. Текст: {{ single_news.post_text|truncatewords:20 }} Автор: {{ single_news.author.user }}</li>
+            <li>id: {{ single_news.id }}. <b>{{ single_news.post_heading|censor }}</b>. дата публикации: {{ single_news.post_date_creation|date:'d.m.Y' }}. Текст: {{ single_news.post_text|truncatewords:20|censor }} Автор: {{ single_news.author.user }}</li>
         {% endfor %}
     </ul>
 </body>
