@@ -1,18 +1,14 @@
+{% extends 'default.html' %}
 {% load my_filters %} {# Подключение кастомных фильров #}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<h1>Новости</h1>
-<h2>Всего новостей: {{ news|length }}</h2>
-    <ul>
-        {% for single_news in news %}
-            <li>id: {{ single_news.id }}. <b>{{ single_news.post_heading|censor }}</b>. дата публикации: {{ single_news.post_date_creation|date:'d.m.Y' }}. Текст: {{ single_news.post_text|truncatewords:20|censor }} Автор: {{ single_news.author.user }}</li>
-        {% endfor %}
-    </ul>
-</body>
-</html>
+{% block title %} all news {% endblock title %}
+
+{% block content %}
+    <h1>Новости</h1>
+    <h2>Всего новостей: {{ news|length }}</h2>
+        <ul>
+            {% for single_news in news %}
+                <li>id: {{ single_news.id }}. <b><a href="/news/{{ single_news.id }}">{{ single_news.post_heading|censor }}</a></b>. дата публикации: {{ single_news.post_date_creation|date:'d.m.Y' }}. Текст: {{ single_news.post_text|truncatewords:20|censor }} Автор: {{ single_news.author.user }}</li>
+            {% endfor %}
+        </ul>
+{% endblock content %}

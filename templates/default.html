@@ -1,0 +1,14 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %} {% endblock title %}</title>
+</head>
+<body>
+    <h1>Default pages</h1>
+    {% block content %}
+        {% include 'default.html' %}
+    {% endblock content %}
+</body>
+</html>
