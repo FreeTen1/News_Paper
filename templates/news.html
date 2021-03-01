@@ -9,6 +9,7 @@
         <ul>
             {% for single_news in news %}
                 <li>id: {{ single_news.id }}. <b><a href="/news/{{ single_news.id }}">{{ single_news.post_heading|censor }}</a></b>. дата публикации: {{ single_news.post_date_creation|date:'d.m.Y' }}. Текст: {{ single_news.post_text|truncatewords:20|censor }} Автор: {{ single_news.author.user }}</li>
+                <br>
             {% endfor %}
         </ul>
 {% endblock content %}
