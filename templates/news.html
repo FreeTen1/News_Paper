@@ -7,9 +7,11 @@
     <h1>Новости</h1>
     <h2>Всего новостей: {{ news|length }}</h2>
     <div><a href="/news/search">Поиск</a></div>
+    <div><a href="/news/create">Создать новость</a></div>
         <ul>
             {% for single_news in news %}
-                <li>id: {{ single_news.id }}. <b><a href="/news/{{ single_news.id }}">{{ single_news.post_heading|censor }}</a></b>. дата публикации: {{ single_news.post_date_creation|date:'d.m.Y' }}. Текст: {{ single_news.post_text|truncatewords:20|censor }} Автор: {{ single_news.author.user }}</li>
+                <li>id: {{ single_news.id }}. <b><a href="/news/{{ single_news.id }}">{{ single_news.post_heading|censor }}</a></b>. дата публикации: {{ single_news.post_date_creation|date:'d.m.Y' }}. Текст: {{ single_news.post_text|truncatewords:20|censor }} Автор: {{ single_news.author.user }}
+                    <a href="/news/create/{{ single_news.id }}">Редактировать</a> <a href="/news/delete/{{ single_news.id }}">Удалить</a></li>
                 <br>
             {% endfor %}
         </ul>

@@ -6,7 +6,7 @@
 
 {% block content %}
     <h1>{{ single_news.post_heading|censor }}</h1>
-    <div><a href="/news/">Назад</a></div>
+    <div><a href="/news/">Главная</a></div>
     <br>
     <i>Дата создания статьи: {{ single_news.post_date_creation|date:'d.m.Y H:m' }}</i>
     <p>{{ single_news.post_text|censor }}</p>

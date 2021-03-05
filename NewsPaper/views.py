@@ -1,4 +1,6 @@
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+
+from .forms import NewsForm
 from .models import Post
 from .filters import NewsFilter
 
@@ -29,3 +31,25 @@ class NewsDetail(DetailView):
     template_name = 'single_news.html'  # название шаблона будет product.html
     context_object_name = 'single_news'  # название объекта. в нём будет
     queryset = Post.objects.filter(type='NE')
+
+
+class NewsCreate(CreateView):
+    template_name = 'news_create.html'
+    form_class = NewsForm
+
+
+# дженерик для редактирования объекта
+class NewsUpdate(UpdateView):
+    template_name = 'news_create.html'
+    form_class = NewsForm
+
+    def get_object(self, **kwargs):
+        id = self.kwargs.get('pk')
+        return Post.objects.get(pk=id)
+
+
+class NewsDelete(DeleteView):
+    template_name = 'news_delete.html'
+    queryset = Post.objects.all()
+    success_url = '/news/'
+    context_object_name = 'single_news'

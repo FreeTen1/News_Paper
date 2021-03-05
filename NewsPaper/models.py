@@ -6,6 +6,9 @@ class Author(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     author_rating = models.IntegerField(default=0)
 
+    def __str__(self):
+        return f'{self.user.username}'
+
     def update_rating(self):
         new_rating = 0
         for item in Post.objects.filter(author__user=self.user).values('post_rating'):
@@ -22,6 +25,9 @@ class Author(models.Model):
 
 class Category(models.Model):
     name_category = models.CharField(max_length=255, unique=True)
+
+    def __str__(self):
+        return f'{self.name_category}'
 
 
 class Post(models.Model):
@@ -52,6 +58,9 @@ class Post(models.Model):
 
     def preview(self):
         return self.post_text[:124] + '...'
+
+    def get_absolute_url(self):
+        return f'/news/{self.id}'
 
 
 class PostCategory(models.Model):
