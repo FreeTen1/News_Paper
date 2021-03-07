@@ -1,3 +1,6 @@
+from django.contrib.auth.decorators import login_required #
+from django.utils.decorators import method_decorator # только для авторизованных пользователей
+
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 from .forms import NewsForm
@@ -33,12 +36,14 @@ class NewsDetail(DetailView):
     queryset = Post.objects.filter(type='NE')
 
 
+@method_decorator(login_required, name='dispatch') # Для зареганых пользователей
 class NewsCreate(CreateView):
     template_name = 'news_create.html'
     form_class = NewsForm
 
 
 # дженерик для редактирования объекта
+@method_decorator(login_required, name='dispatch')
 class NewsUpdate(UpdateView):
     template_name = 'news_create.html'
     form_class = NewsForm
@@ -48,6 +53,7 @@ class NewsUpdate(UpdateView):
         return Post.objects.get(pk=id)
 
 
+@method_decorator(login_required, name='dispatch')
 class NewsDelete(DeleteView):
     template_name = 'news_delete.html'
     queryset = Post.objects.all()
