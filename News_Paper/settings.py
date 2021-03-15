@@ -37,9 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
     'NewsPaper',
-    'sign',
 
     'django_filters',
 ]
@@ -125,9 +123,4 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = [
-    BASE_DIR / "static"
-]
-
-LOGIN_URL = '/sign/login/'
-LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = '/admin/login/?next=/admin/'
