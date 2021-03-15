@@ -10,7 +10,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>{% block title %} {% endblock title %}</title>
+  <title>Django flatpages — {% block title %} {% endblock title %}</title>
 
   <!-- Bootstrap core CSS -->
   <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet ">
@@ -26,9 +26,12 @@
 
     <!-- Sidebar -->
     <div class="bg-light border-right" id="sidebar-wrapper" style="max-width: 240px;">
-      <div class="sidebar-heading">News Paper</div>
+      <div class="sidebar-heading">Наследования шаблонов, Bootstrap и удобная статика</div>
       <div class="list-group list-group-flush">
-        <a href="/news" class="list-group-item list-group-item-action bg-light">News</a>
+        <a href="/news/#" class="list-group-item list-group-item-action bg-light">my page1</a>
+        <a href="/news/#" class="list-group-item list-group-item-action bg-light">my page2</a>
+        <a href="/news/#" class="list-group-item list-group-item-action bg-light">my page3</a>
+        <a href="/news/#" class="list-group-item list-group-item-action bg-light">products</a>
       </div>
     </div>
     <!-- /#sidebar-wrapper -->
@@ -38,27 +41,11 @@
 
       <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
         <button class="btn btn-primary" id="menu-toggle">Toggle Menu</button>
-
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Вход <span class="sr-only">(current)</span></a>
-            </li>
-            <li>
-                <a class="nav-link" href="#">Регистрация <span class="sr-only"></span></a>
-            </li>
-
-          </ul>
-        </div>
       </nav>
 
       <div class="container-fluid">
           {% block content %}
-              {% include 'flatpages/default.html' %}
+              {% include 'default.html' %}
           {% endblock content %}
       </div>
     </div>
