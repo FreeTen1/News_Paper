@@ -1,5 +1,8 @@
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
+from django.views.generic import TemplateView
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 from .forms import NewsForm
 from .models import Post
 from .filters import NewsFilter
@@ -33,13 +36,13 @@ class NewsDetail(DetailView):
     queryset = Post.objects.filter(type='NE')
 
 
-class NewsCreate(CreateView):
+class NewsCreate(CreateView, LoginRequiredMixin, TemplateView):
     template_name = 'news_create.html'
     form_class = NewsForm
 
 
 # дженерик для редактирования объекта
-class NewsUpdate(UpdateView):
+class NewsUpdate(UpdateView, LoginRequiredMixin, TemplateView):
     template_name = 'news_create.html'
     form_class = NewsForm
 
@@ -48,7 +51,7 @@ class NewsUpdate(UpdateView):
         return Post.objects.get(pk=id)
 
 
-class NewsDelete(DeleteView):
+class NewsDelete(DeleteView, LoginRequiredMixin, TemplateView):
     template_name = 'news_delete.html'
     queryset = Post.objects.all()
     success_url = '/news/'
