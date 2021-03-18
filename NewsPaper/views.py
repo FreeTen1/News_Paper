@@ -1,7 +1,7 @@
+from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
-from django.views.generic import TemplateView
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.utils.decorators import method_decorator
 
 from .forms import NewsForm
 from .models import Post
@@ -36,13 +36,15 @@ class NewsDetail(DetailView):
     queryset = Post.objects.filter(type='NE')
 
 
-class NewsCreate(CreateView, LoginRequiredMixin, TemplateView):
+@method_decorator(login_required, name='dispatch')
+class NewsCreate(CreateView):
     template_name = 'news_create.html'
     form_class = NewsForm
 
 
 # дженерик для редактирования объекта
-class NewsUpdate(UpdateView, LoginRequiredMixin, TemplateView):
+@method_decorator(login_required, name='dispatch')
+class NewsUpdate(UpdateView):
     template_name = 'news_create.html'
     form_class = NewsForm
 
@@ -51,7 +53,8 @@ class NewsUpdate(UpdateView, LoginRequiredMixin, TemplateView):
         return Post.objects.get(pk=id)
 
 
-class NewsDelete(DeleteView, LoginRequiredMixin, TemplateView):
+@method_decorator(login_required, name='dispatch')
+class NewsDelete(DeleteView):
     template_name = 'news_delete.html'
     queryset = Post.objects.all()
     success_url = '/news/'
