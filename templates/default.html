@@ -1,71 +1,14 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
-
-  <title>Django flatpages — {% block title %} {% endblock title %}</title>
-
-  <!-- Bootstrap core CSS -->
-  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet ">
-
-  <!-- Custom styles for this template -->
-  <link href="{% static 'css/simple-sidebar.css' %}" rel="stylesheet">
-
+    <meta charset="UTF-8">
+    <title>{% block title %} {% endblock title %}</title>
 </head>
-
 <body>
-
-  <div class="d-flex" id="wrapper">
-
-    <!-- Sidebar -->
-    <div class="bg-light border-right" id="sidebar-wrapper" style="max-width: 240px;">
-      <div class="sidebar-heading">Наследования шаблонов, Bootstrap и удобная статика</div>
-      <div class="list-group list-group-flush">
-        <a href="/my_page1" class="list-group-item list-group-item-action bg-light">my page1</a>
-        <a href="/my_page2" class="list-group-item list-group-item-action bg-light">my page2</a>
-        <a href="/my_page3" class="list-group-item list-group-item-action bg-light">my page3</a>
-        <a href="/products" class="list-group-item list-group-item-action bg-light">products</a>
-      </div>
-    </div>
-    <!-- /#sidebar-wrapper -->
-
-    <!-- Page Content -->
-    <div id="page-content-wrapper">
-
-      <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-        <button class="btn btn-primary" id="menu-toggle">Toggle Menu</button>
-      </nav>
-
-      <div class="container-fluid">
-          {% block content %}
-              {% include 'default.html' %}
-          {% endblock content %}
-      </div>
-    </div>
-    <!-- /#page-content-wrapper -->
-
-  </div>
-  <!-- /#wrapper -->
-
-  <!-- Bootstrap core JavaScript -->
-  <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
-  <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-
-  <!-- Menu Toggle Script -->
-  <script>
-    $("#menu-toggle").click(function(e) {
-      e.preventDefault();
-      $("#wrapper").toggleClass("toggled");
-    });
-  </script>
-
+    <h1>Default pages</h1>
+    {% block content %}
+        {% include 'default.html' %}
+    {% endblock content %}
 </body>
-
 </html>
