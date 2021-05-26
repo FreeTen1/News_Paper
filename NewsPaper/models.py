@@ -62,24 +62,10 @@ class Post(models.Model):
     def get_absolute_url(self):
         return f'/news/{self.id}'
 
-    def __str__(self):
-        return f'{self.id} {self.post_heading}'
-
 
 class PostCategory(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return f'{self.post}'
-
-
-class Subscribers(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return f'{self.user} {self.category}'
 
 
 class Comment(models.Model):
