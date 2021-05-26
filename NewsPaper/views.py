@@ -8,7 +8,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from django.utils.decorators import method_decorator
 
 from .forms import NewsForm
-from .models import Post
+from .models import Post, PostCategory
 from .filters import NewsFilter
 
 
@@ -53,6 +53,10 @@ class NewsDetail(DetailView):
     context_object_name = 'single_news'  # название объекта. в нём будет
     queryset = Post.objects.filter(type='NE')
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['category'] = PostCategory.objects.filter(post__id=self.kwargs.get('pk'))[0].category
+        return context
 
 @method_decorator(login_required, name='dispatch')
 class NewsCreate(PermissionRequiredMixin, CreateView):
