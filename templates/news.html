@@ -37,4 +37,11 @@
                 <a href="?page={{ page_obj.paginator.num_pages }}">Last</a>
             {% endif %}
         {% endif %}
+    <br>
+    {% if user.is_authenticated %}
+        {% if is_not_premium %}
+            <button> <a href="upgrade/"> Хочу Premium!</a> </button>
+        {% endif %}
+    {% endif %}
+
 {% endblock content %}

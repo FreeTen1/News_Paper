@@ -1,5 +1,9 @@
+from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.contrib.auth.models import Group
+
 from django.contrib.auth.decorators import login_required
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.shortcuts import redirect
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
 
 from django.utils.decorators import method_decorator
 
@@ -21,12 +25,26 @@ class SearchNews(ListView):
         return context
 
 
+@login_required
+def upgrade_me(request):
+    user = request.user
+    premium_group = Group.objects.get(name='authors')
+    if not request.user.groups.filter(name='authors').exists():
+        premium_group.user_set.add(user)
+    return redirect('/')
+
+
 class NewsList(ListView):
     model = Post
     template_name = 'news.html'
     context_object_name = 'news'
     queryset = Post.objects.filter(type='NE').order_by('-post_date_creation')
     paginate_by = 5
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['is_not_premium'] = not self.request.user.groups.filter(name='authors').exists()
+        return context
 
 
 class NewsDetail(DetailView):
@@ -37,17 +55,18 @@ class NewsDetail(DetailView):
 
 
 @method_decorator(login_required, name='dispatch')
-class NewsCreate(CreateView):
+class NewsCreate(PermissionRequiredMixin, CreateView):
+    permission_required = ('NewsPaper.change_post',)
     template_name = 'news_create.html'
     form_class = NewsForm
 
 
 # дженерик для редактирования объекта
 @method_decorator(login_required, name='dispatch')
-class NewsUpdate(UpdateView):
+class NewsUpdate(PermissionRequiredMixin, UpdateView):
     template_name = 'news_create.html'
     form_class = NewsForm
-
+    permission_required = ('NewsPaper.add_post',)
     def get_object(self, **kwargs):
         id = self.kwargs.get('pk')
         return Post.objects.get(pk=id)

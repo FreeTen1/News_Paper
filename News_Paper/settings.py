@@ -9,7 +9,6 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
-
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -148,6 +147,7 @@ ACCOUNT_EMAIL_VERIFICATION = 'none'
 
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 1
 ACCOUNT_USERNAME_MIN_LENGTH = 4
-LOGIN_REDIRECT_URL = '/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
+
+ACCOUNT_FORMS = {'signup': 'NewsPaper.forms.BasicSignupForm'} # Чтобы allauth распознал нашу форму BasicSignupForm как ту, что должна выполняться вместо формы по умолчанию
